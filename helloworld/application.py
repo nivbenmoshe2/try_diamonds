@@ -212,7 +212,7 @@ def get_mngr():
     # replace table scan
     resp = table.scan()
     print(str(resp))
-    return Response(json.dumps(str(resp['Items'])), mimetype='application/json', status=200)
+    return Response(json.dumps(resp['Items']), mimetype='application/json', status=200)
     
 # curl -i http://"localhost:8000/get_manager?managerId=1"
 @application.route('/get_manager', methods=['GET'])
