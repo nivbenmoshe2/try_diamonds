@@ -317,7 +317,7 @@ def comp_face(source_image):
     if managerId != 0:
         res = get_mng(managerId)
     else:
-        res = "no match"
+        res = json.dumps({'result': "no match"})
     
     # return 0 if below similarity threshold
     
