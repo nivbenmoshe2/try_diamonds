@@ -227,8 +227,8 @@ def get_mng(managerId):
     )
     # replace table scan
     
-    print(str(resp))
-    return Response(json.dumps(str(resp['Item'])), mimetype='application/json', status=200) 
+    
+    return Response(json.dumps(resp['Item']), mimetype='application/json', status=200) 
     
 @application.route('/compare_face/<source_image>', methods=['GET'])
 def comp_face(source_image):
