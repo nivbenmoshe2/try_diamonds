@@ -339,7 +339,7 @@ def uploadImage():
     return {"imgName": filename}
     
     
-@application.route('/send_email', methods=['GET'])
+@application.route('/send_email', methods=['GET', 'POST'])
 def sendEmail():
     sns = boto3.client('sns', region_name='us-east-1')
    # Create topic
@@ -349,12 +349,16 @@ def sendEmail():
     #response1 = sns.subscribe(TopicArn=topic_arn, Protocol="email", Endpoint="nivbenmoshe2@gmail.com")
     #subscription_arn = response1["SubscriptionArn"]
     
+    price = request.args.get('price')
+    customer = request.args.get('customer')
+    date = request.args.get('date')
+
     
     # Publish to topic
     sns.publish(TopicArn=topic_arn, 
-            Message="message text", 
-            Subject="subject used in emails only")
-    return {"name":"blabla"}
+            Message=("A successful purchase of %s$ by %s on %s." % (price, customer, date)), 
+            Subject="Successful sale!")
+    return {"result":"Succeeded"}
  
 
 
