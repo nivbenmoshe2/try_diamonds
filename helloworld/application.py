@@ -324,6 +324,19 @@ def comp_face(source_image):
     return res
     
     
+@application.route('/upload_image', methods=['POST'])
+def uploadImage():
+    mybucket = 'nivbn-my-upload-bucket-01'
+    filobject = request.files['img']
+    s3 = boto3.resource('s3', region_name='us-east-1')
+    date_time = datetime.now()
+    dt_string = date_time.strftime("%d-%m-%Y-%H-%M-%S")
+    filename = "%s.jpg" % dt_string
+
+    
+    s3.Bucket(mybucket).upload_fileobj(filobject, filename, ExtraArgs={'ACL': 'public-read', 'ContentType': 'image/jpeg'})
+    
+    return {"imgName": filename}
     
 if __name__ == '__main__':
     flaskrun(application)
