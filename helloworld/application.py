@@ -338,5 +338,26 @@ def uploadImage():
     
     return {"imgName": filename}
     
+    
+@application.route('/send_email', methods=['GET'])
+def sendEmail():
+    sns = boto3.client('sns', region_name='us-east-1')
+   # Create topic
+   # response = sns.create_topic(Name="members")
+   # topic_arn = response.arn
+    topic_arn = "arn:aws:sns:us-east-1:425545568861:members"
+    #response1 = sns.subscribe(TopicArn=topic_arn, Protocol="email", Endpoint="nivbenmoshe2@gmail.com")
+    #subscription_arn = response1["SubscriptionArn"]
+    
+    
+    # Publish to topic
+    sns.publish(TopicArn=topic_arn, 
+            Message="message text", 
+            Subject="subject used in emails only")
+    return {"name":"blabla"}
+ 
+
+
+    
 if __name__ == '__main__':
     flaskrun(application)
